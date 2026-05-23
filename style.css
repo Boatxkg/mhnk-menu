@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    --scale: 1;
+    --base-screen-height: 1440;
+    --px: calc(1vh / var(--base-screen-height) * 100 * var(--scale));
+}
+
+body {
+    overflow: hidden;
+    font-family: 'Kanit';
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    background-color: gray;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mainMenu {
+    width: calc(1700*var(--px));
+    height: calc(1050*var(--px));
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.topBar {
+    display: flex;
+    gap: calc(10*var(--px));
+}
+
+.navBarList {
+    list-style: none;
+    display: flex;
+    gap: calc(8*var(--px));
+}
+
+.navBarItem {
+    width: calc(50*var(--px));
+    height: calc(50*var(--px));
+    background-color: rgba(12, 21, 19, 0.8);
+    border-radius: calc(4*var(--px));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+.navBarItem:hover{
+    background-color: rgba(129, 216, 208, 1);
+    color: rgba(27, 53, 49, 1);
+}
+
+.navBarItem.hasWord {
+    width: auto;
+    /* box-sizing: border-box; */
+    padding-left: calc(15*var(--px));
+    padding-right: calc(15*var(--px));
+    gap: calc(10*var(--px));
+    font-size: calc(18*var(--px));
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+}
+
+.navBarItem>img,
+.navBarItem>svg {
+    width: calc(30*var(--px));
+    height: calc(30*var(--px));
+    object-fit: contain;
+    /* background-color: rgba(255, 255, 255, 0.2); */
+}
+
+.navBarItem.active {
+    background-color: #81D8D0;
+}
