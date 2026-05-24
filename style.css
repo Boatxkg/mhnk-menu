@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
 
 :root {
     --scale: 1;
@@ -13,6 +14,11 @@ body {
     padding: 0;
     user-select: none;
     background-color: gray;
+    box-sizing: border-box;
+}
+
+p {
+    margin: 0;
 }
 
 .container {
@@ -26,17 +32,28 @@ body {
 .mainMenu {
     width: calc(1700*var(--px));
     height: calc(1050*var(--px));
-    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    gap: calc(15*var(--px));
+    /* background-color: rgba(0, 0, 0, 0.4); */
 }
 
 .topBar {
+    width: inherit;
+    height: calc(50*var(--px));
     display: flex;
     gap: calc(10*var(--px));
+    align-items: center;
 }
 
 .navBarList {
+    width: inherit;
+    height: inherit;
+    padding: 0;
+    padding-left: calc(12*var(--px));
     list-style: none;
     display: flex;
+    justify-content: flex-start;
     gap: calc(8*var(--px));
 }
 
@@ -49,8 +66,13 @@ body {
     align-items: center;
     justify-content: center;
     color: white;
+    transition: color 200ms ease, background-color 200ms ease;
 }
-.navBarItem:hover{
+
+.navBarItem:hover,
+.navBarItem.hasWord:hover,
+.navBarItem.active,
+.navBarItem.hasWord.active {
     background-color: rgba(129, 216, 208, 1);
     color: rgba(27, 53, 49, 1);
 }
@@ -75,6 +97,518 @@ body {
     /* background-color: rgba(255, 255, 255, 0.2); */
 }
 
-.navBarItem.active {
+
+.contentBox {
+    width: inherit;
+    height: calc(990*var(--px));
+    /* background-color: rgba(129, 216, 208, 0.5); */
+    position: relative;
+    box-sizing: border-box;
+    padding: calc(10*var(--px));
+}
+
+.contentBox::before {
+    content: '';
+    position: absolute;
+    inset: calc(-2*var(--px));
+    border-radius: calc(16*var(--px));
+    padding: calc(3*var(--px));
+    background: linear-gradient(to bottom,
+            #81D8D0,
+            #0B8977);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+
+    pointer-events: none;
+}
+
+.innerContentBox {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.65);
+    border-radius: calc(12*var(--px));
+    padding: calc(10*var(--px));
+    box-sizing: border-box;
+}
+
+.slideWrapper {
+    width: inherit;
+    height: inherit;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    gap: calc(10*var(--px));
+    border-radius: calc(8*var(--px));
+    transform-origin: left;
+
+}
+
+.slideWrapper>img {
+    border-radius: inherit;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.buttonSlideWrapper {
+    display: flex;
+    position: absolute;
+    bottom: calc(40*var(--px));
+    width: inherit;
+    justify-content: center;
+}
+
+.buttonSlideWrapper>button {
+    width: calc(15*var(--px));
+    height: calc(15*var(--px));
+    margin-left: calc(2.5*var(--px));
+    margin-right: calc(2.5*var(--px));
+    border-radius: calc(12*Var(--px));
+    background-color: rgba(255, 255, 255, 1);
+    outline: unset;
+    border: unset;
+    cursor: pointer;
+    transition: width 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.buttonSlideWrapper>button.active {
+    width: calc(50*var(--px));
+    background-color: rgba(129, 216, 208, 0.8);
+}
+
+/* setting page section  */
+.SettingPage {
+    width: inherit;
+    height: inherit;
+    /* background-color: rgba(129, 216, 208, 0.8); */
+    border-radius: calc(8*var(--px));
+    display: flex;
+    flex-direction: column;
+    gap: calc(10*var(--px));
+}
+
+.SettingBlock {
+    background: linear-gradient(to right, rgba(18, 44, 40, 0.8), rgba(12, 21, 19, 0.8));
+    width: inherit;
+    height: calc(100*var(--px));
+    border-radius: calc(6*var(--px));
+    border: calc(2*var(--px)) solid #1A3531;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: calc(10*var(--px)) calc(25*var(--px));
+    box-sizing: border-box;
+}
+
+.LeftSectionSettingBlock {
+    display: flex;
+    flex-direction: column;
+}
+
+.TextGrotesk {
+    margin: 0;
+    font-family: 'Space Grotesk', 'Kanit';
+    font-weight: 500;
+    font-size: calc(24*var(--px));
+    color: #9EFFF6;
+}
+
+.TextGrotesk.info {
+    font-weight: 300;
+    font-size: calc(18*var(--px));
+    color: aliceblue;
+}
+
+.SettingBlockAction {
+    border: calc(2*var(--px)) solid #4B7D79;
+    width: auto;
+    display: flex;
+    gap: calc(5*var(--px));
+    align-items: center;
+    height: calc(55*var(--px));
+    padding: calc(5*var(--px)) calc(5*var(--px));
+    border-radius: calc(8*var(--px));
+}
+
+.SettingBlockAction>button {
+    width: calc(120*var(--px));
+    height: inherit;
+    background-color: transparent;
+    border: none;
+    color: aliceblue;
+    font-family: 'Space Grotesk';
+    border-radius: calc(4*var(--px));
+    font-weight: 500;
+    font-size: calc(18*var(--px));
+    box-shadow: inset(0 0 calc(8*var(--px)) transparent);
+    transition: background-color 200ms cubic-bezier(0.215, 0.610, 0.355, 1), color 200ms linear;
+}
+
+.SettingBlockAction>button:hover,
+.SettingBlockAction>button.active {
+    background-color: rgba(129, 216, 208, 0.7);
+    box-shadow: inset 0 0 calc(8*var(--px)) #8DF4EA;
+}
+
+/* end setting page  */
+
+/* start eventPage  */
+.eventPage {
+    width: inherit;
+    height: inherit;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: calc(8*var(--px));
+    /* background-color: rgba(0, 0, 0, 0.65); */
+}
+
+.eventItem {
+    width: calc(540*var(--px));
+    height: calc(302.5*var(--px));
+    /* background-color: #4B7D79; */
+    border-radius: calc(8*var(--px));
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    border: calc(3*var(--px)) solid #385552;
+    transition: border 300ms linear;
+}
+
+.eventItem::before {
+    content: '';
+    position: absolute;
+    z-index: 5;
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+    opacity: 0;
+    background: linear-gradient(to top, rgba(129, 216, 208, 0.8), rgba(0, 0, 0, 0));
+    transition: opacity 300ms linear;
+}
+
+.eventItem:hover {
+    border-color: #81D8D0;
+}
+
+.eventItem:hover::before {
+    opacity: 0.8;
+}
+
+.eventItem:hover .bageSection,
+.eventItem:hover .eventTimeSection,
+.eventItem:hover .eventRoomBox {
+    opacity: 1;
+}
+
+
+.eventItem:hover>img {
+    transform: scale(1.2);
+    filter: grayscale(50%) brightness(75%);
+}
+
+.eventItem>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%);
+    transform: scale(1.05);
+    transition: transform 750ms cubic-bezier(0.175, 0.885, 0.32, 1.1), filter 300ms linear;
+}
+
+.eventItemInfoSection {
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    padding: calc(10*var(--px));
+    display: flex;
+    flex-direction: column;
+}
+
+.eventItemTop {
+    position: absolute;
+    z-index: 9;
+    /* background-color: rgba(0, 0, 0, 0.2); */
+}
+
+.eventTextInfo {
+    font-size: calc(18*var(--px));
+    font-weight: 500;
+    color: rgba(255, 255, 255, 1);
+}
+
+.eventTextHeader {
+    font-weight: 500;
+    font-size: calc(32*var(--px));
+    color: aliceblue;
+}
+
+.bageSection {
+    display: flex;
+    padding-left: calc(5*var(--px));
+    gap: calc(20*var(--px));
+    opacity: 0;
+    transition: opacity 300ms linear;
+}
+
+.bageBox {
+    background-color: #385552;
+    outline: calc(2*var(--px)) solid #81D8D0;
+    outline-offset: calc(3.5*var(--px));
+    border-radius: calc(4*var(--px));
+    width: calc(20*var(--px));
+    height: calc(20*var(--px));
+}
+
+.bageBox.active {
     background-color: #81D8D0;
+}
+
+.bageItem {
+    display: flex;
+    gap: calc(5*var(--px));
+    font-size: calc(16*var(--px));
+    color: aliceblue;
+}
+
+.eventRoomBox {
+    position: absolute;
+    right: 5.5vh;
+    top: 2.4vh;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 300ms linear;
+}
+
+.eventRoomBox>button {
+    background: none;
+    border: unset;
+    outline: unset;
+    background-color: unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.eventRoomBox>button {
+    z-index: 9;
+    padding: 0;
+}
+
+.eventRoomBox .svgBackground {
+    position: absolute;
+    z-index: 1;
+    filter: drop-shadow(0vh 0vh 0vh rgba(255, 255, 255, 1));
+    width: calc(100*var(--px));
+    height: calc(50*var(--px));
+    transition: filter 100ms linear;
+}
+
+.eventRoomBox>button:hover>.svgBackground {
+    filter: drop-shadow(0 calc(5*var(--px)) 0 rgba(255, 255, 255));
+}
+
+.eventRoomBox>button>p {
+    position: absolute;
+    z-index: 2;
+    font-size: calc(24*var(--px));
+    font-family: "Kanit";
+    font-weight: 500;
+    color: #1B3531;
+}
+
+.eventTimeSection {
+    background-color: rgba(0, 0, 0, 0.65);
+    position: absolute;
+    bottom: 2vh;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    gap: calc(20*var(--px));
+    width: calc(520*var(--px));
+    height: calc(40*var(--px));
+    padding: 0 1vh;
+    font-weight: 500;
+    font-size: calc(18 *var(--px));
+    color: #BFFBFC;
+    opacity: 0;
+    transition: opacity 300ms linear;
+}
+
+.eventNavigator {
+    position: absolute;
+    bottom: calc(-80*var(--px));
+    display: flex;
+    width: inherit;
+    box-sizing: border-box;
+    ;
+    padding: 0 calc(50*var(--px));
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pagePagination {
+    display: flex;
+    gap: calc(5*var(--px));
+}
+
+.eventNavigatorButton {
+    border: unset;
+    font-family: 'Kanit';
+    font-size: calc(21*var(--px));
+    background-color: rgba(129, 216, 208, 0.7);
+    padding: calc(10*var(--px));
+    color: aliceblue;
+}
+
+.pagePagination>button {
+    background-color: #405856;
+    border: unset;
+    width: calc(35*var(--px));
+    height: calc(35*var(--px));
+    font-family: 'Kanit';
+}
+.pagePagination > button.active{
+    background-color: #81D8D0;
+}
+
+/* modal seciton */
+.modalRoom {
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(calc(2*var(--px)));
+}
+
+.modalItem {
+    position: relative;
+    z-index: 9999;
+    background: url(./image/backgroundModal.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: calc(500*var(--px));
+    height: calc(546 *var(--px));
+    gap: calc(35*var(--px));
+    filter: drop-shadow(0 0 calc(12*var(--px)) rgba(0, 0, 0, 0.8));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding-top: calc(25*var(--px));
+}
+
+.modalItem>img {
+    width: calc(450*var(--px));
+    height: calc(230*var(--px));
+    object-fit: cover;
+    border-radius: calc(4*var(--px));
+    border: calc(2*var(--px)) solid #81D8D0;
+}
+
+
+.modalRoomSelector {
+    width: calc(450*var(--px));
+    height: calc(225*var(--px));
+    /* background-color: rgba(0, 0, 0, 0.65); */
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: calc(10*var(--px));
+    padding-top: calc(10*var(--px));
+    padding-bottom: calc(10*var(--px));
+    box-sizing: border-box;
+}
+
+.modalRoomSelector::-webkit-scrollbar {
+    width: calc(7.5*var(--px));
+}
+
+.modalRoomSelector::-webkit-scrollbar-thumb {
+    background-color: rgba(129, 216, 208, 0.4);
+    border-radius: calc(6*var(--px));
+}
+
+
+.modalRoomSelector::-webkit-scrollbar-track {
+    background-color: rgba(129, 216, 208, 0.2);
+    border-radius: calc(6*var(--px));
+}
+
+.modalButton {
+    display: flex;
+    align-items: center;
+    background: url(./image/buttonModal.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: unset;
+    padding: 0;
+    margin: 0;
+    width: calc(420*var(--px));
+    min-height: calc(62*var(--px));
+    height: calc(62*var(--px));
+    background-color: rgba(255, 255, 255, 0.2);
+    font-family: 'Kanit';
+    transition: all 100ms linear;
+    padding: 0 calc(20*var(--px));
+    justify-content: space-between;
+    font-size: calc(21*var(--px));
+    font-weight: 400;
+    color: aliceblue;
+}
+
+.modalButton.active {
+    background: url(./image/buttonActiveModal.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.modalButtonInfo {
+    display: flex;
+    align-items: center;
+    gap: calc(5*var(--px));
+}
+
+.modalButtonInfo>svg {
+    width: calc(25*var(--px));
+    height: calc(25*var(--px));
+}
+
+
+/* transition-section  */
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 300ms ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.fly-enter-active,
+.fly-leave-active {
+    transition: transform 300ms ease, opacity 300ms ease;
+}
+
+.fly-enter-from,
+.fly-leave-to {
+    transform: translateY(1vh);
+    opacity: 0;
 }
